@@ -1,0 +1,204 @@
+Microsoft Windows [Version 10.0.19042.1288]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\sonjy>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on 목 10월 21 11:55:31 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: test_user1
+Enter password:
+ERROR:
+ORA-01045: user TEST_USER1 lacks CREATE SESSION privilege; logon denied
+
+
+Enter user-name: test_user1
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table tb (
+  2  idx number);
+create table tb (
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> create table tb (
+  2  idx number);
+create table tb (
+*
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'SYSTEM'
+
+
+SQL> create table tb (
+  2  idx number);
+
+Table created.
+
+SQL> desc tb;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IDX                                                NUMBER
+
+SQL> show user;
+USER is "TEST_USER1"
+SQL> conn test_user2;
+Enter password:
+Connected.
+SQL> create table tb (
+  2  idx number);
+create table tb (
+*
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'USERS'
+
+
+SQL> create table tb (
+  2  idx number);
+
+Table created.
+
+SQL> ed new_table
+
+SQL> @new_table
+
+Table created.
+
+SQL> desc tb_kosmo;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IDX                                       NOT NULL NUMBER
+ USER_ID                                   NOT NULL VARCHAR2(30)
+ USER_PW                                   NOT NULL VARCHAR2(50)
+ USER_NAME                                          VARCHAR2(50)
+ POSTDATE                                           DATE
+
+SQL> ed new_table
+
+SQL> @new_table
+create sequence seq_kosmo
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> conn test_user1/4321;
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn test_user2/1234;
+Connected.
+SQL> conn test_user1/4321;
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn test_user1/1234;
+Connected.
+SQL> conn test_user2/1234;
+Connected.
+SQL> conn test_user1/4321;
+Connected.
+SQL> conn test_user2
+Enter password:
+Connected.
+SQL> ed new_table
+
+SQL> @new_table
+
+Sequence created.
+
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> ed new_table
+
+SQL> ed new_table
+
+SQL> @new_table
+
+1 row created.
+
+SQL> select * from kosmo;
+select * from kosmo
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from kosmo;
+select * from kosmo
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from tb_kosmo;
+
+       IDX USER_ID
+---------- ------------------------------------------------------------
+USER_PW
+--------------------------------------------------------------------------------
+USER_NAME
+--------------------------------------------------------------------------------
+POSTDATE
+--------
+         1 gasan1
+1111
+digital
+21/10/21
+
+
+SQL> conn test_user3
+Enter password:
+Connected.
+SQL> exit
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+C:\Users\sonjy>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on 목 10월 21 14:50:48 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: test_user1
+Enter password:
+ERROR:
+ORA-01045: user TEST_USER1 lacks CREATE SESSION privilege; logon denied
+
+
+Enter user-name: test_user3
+Enter password:
+ERROR:
+ORA-01045: user TEST_USER3 lacks CREATE SESSION privilege; logon denied
+
+
+Enter user-name: test_user2
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> exit
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+C:\Users\sonjy>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on 목 10월 21 14:52:09 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: test_user2
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
